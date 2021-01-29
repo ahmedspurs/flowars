@@ -1,0 +1,41 @@
+
+      <div class="container contact   wow animate__animated animate__bounceInRight animate__delay-1s" style="display: {{s}}">
+        <h2 class="text-center"><span class="fa fa-envelope"></span> Contact Us</h2>
+        <form>
+            <div class="form-group   wow animate__animated animate__bounceInLeft animate__delay-2s">
+                <label for="">Name</label>
+                <input type="text" class="form-control" ng-model="name">
+            </div>
+            <div class="form-group   wow animate__animated animate__bounceInRight animate__delay-2s">
+                <label for="">Phone Number</label>
+                <input type="number" class="form-control "  ng-model="num">
+            </div>
+
+            <div class="form-group   wow animate__animated animate__bounceInLeft animate__delay-2s">
+                <label for="">E-mail</label>
+                <input type="text" class="form-control" placeholder="Example@Example.com"  ng-model="email">
+            </div>
+
+            <div class="form-group  wow animate__animated animate__bounceInRight animate__delay-2s">
+                <label for="">Your Message</label>
+                <textarea class="form-control"  ng-model="add"></textarea>
+            </div>
+
+            <div class="form-group">
+                <button ng-click="send(); clearA(name,num,add,email);canc($event)" class="btn con-btn  wow animate__animated animate__bounceInLeft animate__delay-2s" id="btn-hide">Send</button>
+            </div>
+
+        </form>
+        <p class="text-center   wow animate__animated animate__bounceInLeft animate__delay-2s"><span class="fa fa-pen "></span> we happy about your coments</p>
+
+    </div>
+
+    <div class="container contact1" style="display:{{p}} !important;">
+        <p>
+            thank you for contacting us
+        </p>
+    </div>
+
+
+
+

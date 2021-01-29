@@ -1,0 +1,64 @@
+
+    <main ng-controller="ctrl2">
+        <div class="container dash" >
+          <h2 class="text-center">Add New Flowars</h2>
+        <div class="form">
+            <form action="" method="post" ng-submit="eve()">
+            <h2 class="alert {{v}}">{{y}}</h2>
+                
+                <div class="form-gorup">
+                    <input type="text" class="form-control  wow animate__animated animate__bounceInRight animate__delay-1s" placeholder="Flowars Name" ng-model="name">
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <input type="text" class="form-control  wow animate__animated animate__bounceInLeft animate__delay-2s" placeholder="Flowars Owner" ng-model="owner">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-gorup">
+                            <input type="number" class="form-control  wow animate__animated animate__bounceInRight animate__delay-1s" placeholder="price" ng-model="price">
+                        </div>
+                    </div>
+                </div>
+
+              <div class="form-group">
+                <!-- <label for=""> Flowars Images</label> -->
+                <input type="file" name="" id="" class="form-control  wow animate__animated animate__bounceInLeft animate__delay-2s"  placeholder="FLowars image">
+              </div>
+
+                <div class="d-felx text-center icons">
+                    <button class="btn btn-primary wow animate__animated animate__bounceInRight animate__delay-1s" ng-click="addF($event); canc($event)"><i class="fas fa-plus  "></i></button>
+                    <button class="btn btn-success wow animate__animated animate__bounceInLeft animate__delay-1s"><i class="fas fa-pen "></i></button>
+                    <button class="btn btn-danger wow animate__animated animate__bounceInRight animate__delay-1s" ng-click="del($event); canc($event)"><i class="fas fa-trash"></i></button>
+                </div>
+            </form>
+        </div>
+        </div>
+        <div class="container">
+            <table class="table wow animate__animated animate__bounceInLeft animate__delay-1s">
+                <thead>
+                  <tr class="wow animate__animated animate__bounceInLeft animate__delay-2s">
+                    <th scope="col">id</th>
+                    <th scope="col">Flowars Name</th>
+                    <th scope="col">Flowars Owner</th>
+                    <th scope="col">price</th>
+                    <th scope="col">edit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="dah in dahs" class="wow animate__animated animate__bounceInRight animate__delay-2s">
+                    <td>{{$index+1}}</td>
+                    <td>{{dah.name}}</td>
+                    <td>{{dah.owner}}</td>
+                    <td>{{dah.price|currency}}</td>
+                    <td class="btn"><i class="fas fa-pen text-light"></i></td>
+                    
+                  </tr>
+                 
+
+                 
+                </tbody>
+              </table>
+        </div>
+    </main>

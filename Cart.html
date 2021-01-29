@@ -1,0 +1,48 @@
+<html ng-app="myApp">
+  <head>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-animate.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+    <script src="Cart.js"></script>
+  </head>
+  
+  <body class="container" ng-controller="myController">
+    <h1>Welcome to the GA Camping Store</h1>
+    <br/>
+    <h4>Filtering input: <input type="text" ng-model="searchText"></h4>
+    <br/>
+    <div class="row">
+      <table class="table col-md-9 col-md-offset-3">
+        <tr>
+          <th>Category</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th class="qty">Qty</th>
+          <th>Total</th>
+        </tr>
+        <tr class="animate-repeat" ng-repeat="item in products[0] | filter:searchText | orderBy:'category' ">
+          <td>{{ item.name }}</td>
+          <td>{{ item.Material }}</td>
+          <td ng-class="{ 'on-sale' : item.onSale }">{{ item.price | currency }}</td>
+          <td><input type="number" ng-model="item.qty" class="qty"></td>
+          <td>{{ item.qty * item.price | currency }}</td>
+          <td>
+            <button class="btn-primary" ng-click="addItem(item)">Add to Cart</button></td>-
+        </tr>
+      </table>
+    </div>
+    <div class="row">
+      <h2>Your Cart:</h2>
+      <ul>
+        <li class="animate-repeat" ng-repeat="item in cart | orderBy:'category'">
+          <span>{{ item.qty + ' x ' + item.Material + ' = ' + (getCost(item) | currency) }}</span>
+          <button class="btn-danger btn-xs" ng-click="removeItem(item);">Remove Item</button>
+          </br>
+          </br>
+        </li>
+      </ul>
+      <h3>Total: {{ getTotal() | currency }}</h3>
+      <button class="btn-danger" ng-click="clearCart();">Clear Cart</button>
+    </div>
+  </body>
+</html>

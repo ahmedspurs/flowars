@@ -1,0 +1,153 @@
+
+<section class="container-fluid store">
+    <div class="row">
+        <div class="col-md-2  wow animate__animated animate__bounceInRight animate__delay-1s">
+            <div class="panel-group " id="parent">
+                <div  class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#x1" class=" wow animate__animated animate__backInLeft animate__delay-1s" ng-click="canc($event)" data-parent="#parent" data-toggle="collapse">Prices</a>
+                        </h4>
+                    </div>
+                    <div id="x1" class="collapse panel-collapse">
+                        <div class="list-group">
+                            <a href="#" ng-click="canc($event);min=10;max=15" class="list-group-item">10-15$</a>
+                            <a href="#" ng-click="canc($event);min=15;max=20" class="list-group-item">15-20$</a>
+                            <a href="#" ng-click="canc($event);min=20;max=25" class="list-group-item">20-25$</a>
+                            <a href="#" ng-click="canc($event)" class="list-group-item"><span style="font-size: medium">Custom Price</span><br><input
+                                    type="text" class="form-control" ng-model="min" placeholder="Minimum Price"><input
+                                    type="text" class="form-control" ng-model="max" placeholder="Maximum Price"></a>
+
+                        </div>
+                    </div>
+                </div>
+                <div  class="panel ">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#x2" ng-click="canc($event)" data-parent="#parent" data-toggle="collapse">Material</a>
+                        </h4>
+                    </div>
+                    <div id="x2" class="collapse panel-collapse">
+                        <div class="list-group">
+                            <a href="#" ng-click="canc($event);na='Natural';ar=0" class="list-group-item">Natural</a>
+                            <a href="#" ng-click="canc($event);ar='Artificial';na=0" class="list-group-item">Artificial</a>
+                        </div>
+                    </div>
+                </div>
+                <div  class="panel">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <a href="#x3" ng-click="canc($event)" data-parent="#parent" data-toggle="collapse">Occasion</a>
+                        </h4>
+                    </div>
+                    <div id="x3" class="collapse panel-collapse">
+                        <div class="list-group">
+                            <a href="#" ng-click="canc($event);we='Wedding';bi=0;fr=0;lo=0" class="list-group-item">Wedding</a>
+                            <a href="#" ng-click="canc($event);bi='Birthday';we=0;fr=0;lo=0" class="list-group-item">Birthday</a>
+                            <a href="#" ng-click="canc($event);fr='Friendship';we=0;bi=0;lo=0" class="list-group-item">Friendship</a>
+                            <a href="#" ng-click="canc($event);lo='Love';we=0;bi=0;fr=0" class="list-group-item">Love</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <a href="#" ng-click="canc($event);clearFilter()"><button class="btn btn-success" style="color: #fff;background-color: #7d2580;border-color: #7b2580;width: 100%">Clear Filter</button></a>
+        </div>
+        <div class="col-md-10">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="{{x=='show1'?'active':''}}" id="show1"><a href="#" ng-click="x='show1';canc($event);n=0">Pure flowers</a></li>
+                <li role="presentation" class="{{x=='show2'?'active':''}}" id="show2"><a href="#" ng-click="x='show2';canc($event);n=1">Btuqets</a></li>
+                <li role="presentation" class="{{x=='show3'?'active':''}}" id="show3"><a href="#" ng-click="x='show3';canc($event);n=2">Gifts</a></li>
+                <li role="presentation" class="{{x=='show4'?'active':''}}" id="show4"><a href="#" ng-click="x='show4';canc($event)"><span class="fa fa-shopping-cart"></span> My Cart</a></li>
+            </ul>
+
+            <div ng-switch="x">
+                <div ng-switch-when="show1">
+                    <div class="col-sm-6 col-md-3 col-xs-12 wow animate__animated animate__bounceInRight animate__delay-1s" ng-repeat="product in products[0]|mate:na:ar|minMaxPrice:min:max|occ:we:bi:fr:lo">
+                        <div class="thumbnail">
+                            <img src={{product.img}}>
+                            <div class="caption wow animate__animated animate__bounceInLeft animate__delay-2s">
+                                <h3>{{product.name}}</h3>
+                                <p>Material :{{product.Material}}</p>
+                                <p style="font-size: initial">Price : {{product.price|currency}}</p>
+                                <p class="wow animate__animated animate__zoomIn animate__delay-3s"><a href="#" ng-click="canc($event);add_cart(product)" class="btn btn-success" role="button"><span class="fa fa-shopping-cart"></span> BUY</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+
+                <div  ng-switch-when="show2">
+                    <div class="col-sm-6 col-md-3 col-xs-12 wow animate__animated animate__fadeInUp animate__delay-1s" ng-repeat="product in products[1]|minMaxPrice:min:max|mate:na:ar|minMaxPrice:min:max|occ:we:bi:fr:lo">
+                        <div class="thumbnail">
+                            <img src={{product.img}}>
+                            <div class=" caption wow animate__animated animate__fadeInLeft animate__delay-2s">
+                                <h3>{{product.name}}</h3>
+                                <p>Material :{{product.Material}}</p>
+                                <p style="font-size: initial">Price : {{product.price}}$</p>
+                                <p class="wow animate__animated animate__zoomIn animate__delay-2s"><a href="#" ng-click="canc($event);add_cart(product)" class="btn btn-success" role="button"><span class="fa fa-shopping-cart"></span> BUY</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  -->
+
+                <div ng-switch-when="show3">
+                    <div class="col-sm-6 col-md-3 col-xs-12 wow animate__animated animate__backInLeft animate__delay-1s" ng-repeat="product in products[2]|minMaxPrice:min:max|mate:na:ar|minMaxPrice:min:max|occ:we:bi:fr:lo">
+                        <div class="thumbnail">
+                            <img src={{product.img}}>
+                            <div class="caption wow animate__animated animate__jackInTheBox animate__delay-2s">
+                                <h3>{{product.name}}</h3>
+                                <p>Material :{{product.Material}}</p>
+                                <p style="font-size: initial">Price : {{product.price}}$</p>
+                                <p class="wow animate__animated animate__bounceInUp animate__delay-2s"><a href="#" ng-click="canc($event);add_cart(product)" class="btn btn-success" role="button"><span class="fa fa-shopping-cart"></span> BUY</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div ng-switch-when="show4">
+                    <div class="small-container cart-page">
+                        <table>
+                            <tr>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Subtotal</th>
+                            </tr>
+                            <tr ng-repeat = "cart in carts" ng-init = "setTotals(cart)">
+                                <td>
+                                    <div class="cart-info wow animate__animated animate__fadeInRight animate__delay-1s">
+                                        <img src={{cart.img}} class="wow animate__animated animate__fadeInLeft animate__delay-1s">
+                                        <div>
+                                    <h3 style="margin-top: -2px" class="wow animate__animated animate__fadeInRight animate__delay-1s">{{cart.name}}</h3>
+                                    <h4>Unit Price: {{cart.price | currency}} <span ng-click = "remove_cart(cart)"><img src="images/trash.png" style="width: 40px;height:40px;cursor: pointer;padding: 10px;"></span></h4>
+                                    </div>
+                                    </div>
+                                </td>
+                                <td><h4>{{cart.qty}}</h4></td>
+                                <td><h4>{{ setTotal(cart) | currency }}</h4></td>
+                            </tr>
+                        </table>
+                        <div class="total-price">
+                            <table>
+                            <tr>
+                                <td><h2>Total</h2></td>
+                                <td><h3>{{total | currency }}</h3></td>
+                            </tr>
+                            <tr>
+                                <td><td><button class="clear-cart" ng-click="clearCart();">Clear Cart</button></td></td>
+                            </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!--  --></div>
+
+        </div>
+    </div>
+</section>

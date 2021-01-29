@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>StoreJS</title>
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.min.js"
+    integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+    crossorigin="anonymous"></script>  
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script>
+        var app=angular.module("myApp",["ngRoute"])
+        app.config(function ($routeProvider) {
+            $routeProvider
+                .when("/",{
+                    templateUrl:"home.html"
+                })
+                .when("/store",{
+                    templateUrl:"store.html",
+                    controller:"storeCtrl"
+                })
+                .when("/froums",{
+                    templateUrl:"froums.html",
+                    controller:"ctrl0"
+
+                })
+                .when("/contact",{
+                    templateUrl:"contact.html",
+                    controller:"ctrl9"
+                })
+                .when("/dashboard",{
+                    templateUrl:"dashboard.html"
+                })
+                .otherwise({
+                    template:"<h1>404 Page Not Found</h1>"
+                })
+        })
+        app.controller("storeCtrl",function ($scope,$rootScope) {
+            $scope.products = [
+
+                [   {id:1,name: "Daffodi", img: 'images/1.jpg', price: 19.99, Material: "Natural", Occasion: "Friendship", qty:1},
+                    {id:2,name: "Cherry Blossom", img: 'images/2.jpg', price: 15.99, Material: "Artificial", Occasion: "Wedding", qty:1},
+                    {id:3,name: "Lily", img: 'images/3.jpg', price: 12.99, Material: "Artificial", Occasion: "Birthday", qty:1},
+                    {id:4,name: "Daisy", img: 'images/4.jpg', price: 9.99, Material: "Natural", Occasion: "Love", qty:1},
+                    {id:5,name: "Tulip", img: 'images/5.jpg', price: 11.99, Material: "Natural", Occasion: "Birthday", qty:1},
+                    {id:6,name: "Poppy", img: 'images/6.jpg', price: 23.99, Material: "Artificial", Occasion: "Friendship", qty:1},
+                    {id:7,name: "Rose", img: 'images/7.jpg', price: 5.99, Material: "Natural", Occasion: "Wedding", qty:1},
+                    {id:8,name: "BlueBell", img: 'images/8.jpg', price: 16.99, Material: "Artificial", Occasion: "Love", qty:1}
+                ],//product[0]
+
+                [
+                    {id:9,name: "Sunflower", img: 'images/9.jpg', price: 8.99, Material: "Natural", Occasion: "Friendship", qty:1},
+                    {id:10,name: "Dahlia", img: 'images/10.jpg', price: 24.99, Material: "Artificial", Occasion: "Wedding", qty:1},
+                    {id:11,name: "Lavender", img: 'images/11.jpg', price: 12.99, Material: "Artificial", Occasion: "Birthday", qty:1},
+                    {id:12,name: "Orchid", img: 'images/12.jpg', price: 23.99, Material: "Natural", Occasion: "Love", qty:1},
+                    {id:13,name: "Tiger Lily", img: 'images/13.jpg', price: 17.99, Material: "Natural", Occasion: "Birthday", qty:1},
+                    {id:14,name: "Bird of Paradise", img: 'images/14.jpg', price: 18.99, Material: "Artificial", Occasion: "Friendship", qty:1},
+                    {id:15,name: "Peony", img: 'images/15.jpg', price: 15.99, Material: "Natural", Occasion: "Wedding", qty:1},
+                    {id:16,name: "Ixora", img: 'images/16.jpg', price: 3.99, Material: "Artificial", Occasion: "Love", qty:1}
+                ],//product[1]
+
+                [
+                    {id:17,name: "Crocus", img: 'images/17.jpg', price: 19.99, Material: "Natural", Occasion: "Friendship", qty : 1},
+                    {id:18,name: "Lotus", img: 'images/18.jpg', price: 15.99, Material: "Artificial", Occasion: "Wedding", qty : 1},
+                    {id:19,name: "Aster", img: 'images/19.jpg', price: 12.99, Material: "Artificial", Occasion: "Birthday", qty : 1},
+                    {id:20,name: "Snowdrop", img: 'images/20.jpg', price: 10.99, Material: "Natural", Occasion: "Love", qty : 1},
+                    {id:21,name: "Violet", img: 'images/21.jpg', price: 21.99, Material: "Natural", Occasion: "Birthday", qty : 1},
+                    {id:22,name: "Forget Me Not", img: 'images/22.jpg', price: 18.99, Material: "Artificial", Occasion: "Friendship", qty : 1},
+                    {id:23,name: "Dandelion", img: 'images/23.jpg', price: 7.99, Material: "Natural", Occasion: "Wedding", qty : 1},
+                    {id:24,name: "Iris", img: 'images/24.jpg', price: 24.99, Material: "Artificial", Occasion: "Love", qty : 1}
+                ]//product[2]
+            ]
+            $scope.clearFilter=function(){
+                $scope.min=""
+                $scope.max=""
+                $scope.na=""
+                $scope.ar=""
+                $scope.bi=""
+                $scope.we=""
+                $scope.lo=""
+                $scope.fr=""
+            }
+            $scope.x = 'show1'
+            $scope.canc = function (event) {
+                event.preventDefault();
+            }
+            $scope.addNumber = function () {
+                $scope.m++
+            }
+            $scope.carts=[];
+
+            $scope.add_cart = function(product){
+
+                if ($scope.carts.length === 0){
+                    product.qty = 1;
+                    $scope.carts.push({id: product.id, name: product.name, img: product.img , price: product.price, qty: product.qty});
+                }
+                else {
+                    var repeat = false;
+                    for(var i = 0; i< $scope.carts.length; i++){
+                        if($scope.carts[i].id === product.id){
+                            repeat = true;
+                            $scope.carts[i].qty +=1;
+                        }
+                    }
+                    if (!repeat) {
+                        product.qty = 1;
+                        $scope.carts.push({id: product.id, name: product.name, img: product.img , price: product.price, qty: product.qty});
+                    }
+                }
+            }
+
+
+            $scope.total = 0;
+
+            $scope.setTotal = function(cart){
+                return cart.qty * cart.price;
+            }
+
+            $scope.setTotals = function(cart){
+                if(cart){
+                    $scope.total += $scope.setTotal(cart)
+                }
+            }
+            $scope.clearCart = function() {
+                $scope.carts=[];
+                $scope.total = 0;
+            };
+
+            $scope.remove_cart = function(cart){
+                if(cart){
+                    $scope.carts.splice($scope.carts.indexOf(cart), 1);
+                    $scope.total -= cart.price;
+                }
+            }
+
+        });
+        app.filter("minMaxPrice",function ($rootScope) {
+            return function (products,min,max) {
+                var out=[]
+                if(!min && !max){
+                    return products
+                }
+                else if(min && !max){
+                    products.forEach(function (product) {
+                        if(product.price>=min)
+                            out.push(product)
+                    })
+                }
+                else if(!min && max){
+                    products.forEach(function (product) {
+                        if(product.price<max)
+                            out.push(product)
+                    })
+                }
+                else{
+                    products.forEach(function (product) {
+                        if(product.price>=min && product.price<max)
+                            out.push(product)
+                    })
+                }
+
+                return out
+
+            }
+        })
+        app.filter("mate",function ($rootScope) {
+            return function (products, na, ar,nan) {
+                var out = []
+                if (!na && !ar) {
+                    return products
+                }
+                else if (na && !ar || nan) {
+                    products.forEach(function (product) {
+                        if (product.Material == na)
+                            out.push(product)
+                    })
+                }
+                else if (!na && ar || nan){
+                    products.forEach(function (product) {
+                        if (product.Material == ar)
+                            out.push(product)
+                    })
+                }
+                return out
+            }
+        })
+        app.filter("occ",function ($rootScope) {
+            return function (products,we,bi,fr,lo) {
+                var out = []
+                if (!we && !bi && !fr && !lo) {
+                    return products
+                }
+                else if (we || bi || fr || lo) {
+                    products.forEach(function (product) {
+                        if (product.Occasion == we)
+                            out.push(product)
+                        else if (product.Occasion == bi)
+                            out.push(product)
+                        else if (product.Occasion == fr)
+                            out.push(product)
+                        else if (product.Occasion == lo)
+                            out.push(product)
+                    })
+                }
+                return out
+            }
+        })
+      app.controller('ctrl0',function($scope){
+          $scope.items=[
+          {name : 'user1', img:'images/users/1.jpg',com:'hello this is test comment'},
+          {name : 'user3', img:'images/users/4.png',com:'hello this is test comment'},
+          {name : 'user4', img:'images/users/3.jpg',com:'hello this is test comment'},
+          {name : 'user5', img:'images/users/2.jpg',com:'hello this is test comment'}
+          
+          ]
+          $scope.canc = function (event) {
+                event.preventDefault();
+            }
+          // $scope.pushArr = {name:$scope.user,img:'images/users/4.png',com:$scope.comm}
+          $scope.today = new Date();
+          $scope.add=function(){
+            if($scope.user==''&&$scope.comm==''){
+              $scope.c='alert-danger'
+                $scope.z='please fil all sits'
+            }
+            else{
+              console.log('hello')
+              $scope.items.push({name:$scope.user,img:'images/users/4.png',com:$scope.comm})
+              $scope.comm = ''
+              $scope.user = ''
+              $scope.c='alert-success'
+                $scope.z='insert complete successfuly'
+              console.log($scope.items)
+            }
+          }
+        })
+
+
+
+      app.controller('ctrl2',function($scope){
+        $scope.dahs=[
+        {name:'jamsine',owner:'spurs',price:223},
+        {name:'red',owner:'ahmed',price:23},
+        {name:'green',owner:'ali',price:21},
+        {name:'blue',owner:'abass',price:12},
+        {name:'yllow',owner:'omer',price:3},
+        {name:'grey',owner:'mosa',price:113}
+ 
+]
+
+$scope.canc = function (event) {
+                event.preventDefault();
+            }
+
+        $scope.addF=function(e){
+          if($scope.price == '' || $scope.owner == '' || $scope.name == ''){
+            $scope.v='alert-danger'
+              $scope.y='fill all blank'
+          }
+else{
+          $scope.dahs.push({name:$scope.name,owner:$scope.owner,price:$scope.price})}
+        }
+
+        $scope.del=function(e){
+          $scope.dahs.splice(0,$scope.dahs.length)
+
+        }
+      })
+ 
+      app.controller('ctrl9',function($rootScope,$scope,$timeout){
+        $scope.canc = function (event) {
+                event.preventDefault();
+            }   
+        
+        $scope.send = function(){
+              
+                $timeout(function(){
+                  $scope.s = 'none';
+                  $scope.p = 'block'
+                $timeout(function(){
+                  $scope.s = 'block';
+                  $scope.p = 'none';
+
+                 
+                },4000)
+                },50)
+                $scope.clearA=function(name,num,add,email){
+                  $scope.name = ''
+                  $scope.num = ''
+                  $scope.add = ''
+                  $scope.email = ''
+                  }
+               
+            }
+
+           
+
+        })
+
+       
+    </script>
+<script src="js/wow.min.js"></script>
+      <script>
+      new WOW().init();
+      </script>
+</head>
+<body ng-app="myApp">
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" ng-click="canc($event)" style="color: aliceblue; font-weight: 600;">FLOWARS STORE</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="#/!"><span class="fa fa-home"></span> HOME <span class="sr-only">(current)</span></a></li>
+                <li><a href="#!store"><span class="fa fa-shopping-cart"></span> STORE</a></li>
+                <li><a href="#!froums"><span class="fa fa-comments"></span> FROUMS</a></li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#!contact"><span class="fa fa-user"></span> CONTACT US</a></li>
+                <li><a href="#!dashboard"><span class="fa fa-wrench"> </span> DASHBOARD</a></li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<ng-view>
+
+</ng-view>
+
+<section class="container social">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="text-center wow animate__animated animate__backInRight animate__delay-2s">Social Media Links</h2>
+            <div class="social-img text-center p-con">
+                <img src="images/facebook-2429746_1280.png" alt="" class="wow animate__animated animate__backInRight animate__delay-2s">
+                <img src="images/instagram-1675670_1280.png" alt="" class="wow animate__animated animate__backInLeft animate__delay-2s">
+                <img src="images/social-1834011_1920.png" alt="" class="wow animate__animated animate__backInRight animate__delay-2s">
+                <img src="images/twitter-2430933_1280.png" alt="" class="wow animate__animated animate__backInLeft animate__delay-2s">
+            </div>
+        </div>
+        <div class="col-md-6  wow animate__animated animate__backInLeft animate__delay-3s">
+            <h2 class="text-center p-con  wow animate__animated animate__backInRight animate__delay-2s">Quote</h2>
+            <p class="text-center p-con  wow animate__animated animate__backInLeft animate__delay-1s">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laboriosam mollitia ipsum maxime tempore dolor, provident assumenda, tempora deleniti inventore explicabo ex enim sit in, velit harum accusantium exercitationem non ab?</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="container">
+    <hr>
+</div>
+
+<footer class="text-center">
+    Designed by Group F
+</footer>
+</body>
+</html>

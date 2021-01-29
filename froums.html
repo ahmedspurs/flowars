@@ -1,0 +1,44 @@
+
+<ul class="list-group container froums">
+    <h2 class="text-center">Froums</h2>
+    <li class="list-group-item item1 wow animate__animated animate__bounceInRight animate__delay-1s" id="add-c" ng-repeat="item in items" >
+        <div class="media">
+            <div class="media-left media-middle wow animate__animated animate__bounceInLeft animate__delay-2s">
+              <a href="#">
+                <img class="media-object" src="{{item.img}}" alt="...">
+              </a>
+            </div>
+            <div class="media-body media-middle wow animate__animated animate__bounceInRight animate__delay-1s">
+              <span class="pull-right text-primary">{{ today | date :  "h:ss a" }}</span>
+              <h4 class="media-heading">{{item.name}}</h4>
+              <p>{{item.com}}</p>
+            </div>
+          </div>
+        </li>
+</ul>
+
+
+<div class="container contact">
+    <h2 class="text-center wow animate__animated animate__bounceInLeft animate__delay-1s"><span class="fa fa-comments"></span> Add Comments</h2>
+    <p class="alert {{c}}">{{z}}</p>
+    <form ng-submit="add()" class="froums-sub">
+        <div class="form-group wow animate__animated animate__bounceInLeft animate__delay-1s">
+            <label for="">Name</label>
+            <input type="text" class="form-control" id="text-r" ng-model="user" required>
+        </div>
+
+
+        <div class="form-group wow animate__animated animate__bounceInRight animate__delay-1s">
+            <label for="" id="text-e">Your Comments</label>
+            <textarea class="form-control"  ng-model="comm" required></textarea>
+        </div>
+
+        <div class="form-group wow animate__animated animate__bounceInLeft animate__delay-2s">
+            <button  class="btn add-com" style="background-color: #7d2580; color: white; font-weight: 600;" id="btn-hide add-co">comment</button>
+        </div>
+
+    </form>
+
+</div>
+
+
